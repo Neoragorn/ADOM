@@ -1,0 +1,62 @@
+package main;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
+
+import algorithm.HeuristiqueAlgo;
+import algorithm.TSPAlgo;
+import datastorage.Data;
+import parser.ParserTSP;
+
+public class Main {
+	public static void main(String [] args) throws IOException
+	{
+		ParserTSP parser = new ParserTSP();
+
+		parser.openFile("src/kroA100.tsp");
+		parser.readAndParseFile();
+
+		Data.getInstance().addCost();
+		//Data.getInstance().showCost();
+
+		List<Integer> schemaVille = new ArrayList<Integer>();
+		schemaVille.add(2);
+		schemaVille.add(1);
+		schemaVille.add(4);
+		schemaVille.add(3);
+
+		TSPAlgo algo = new TSPAlgo(schemaVille);
+		algo.tspAlgorithm(Data.getInstance().getCostMap());
+
+		List<Integer> schemaVilleRand = new ArrayList<Integer>();
+		int sizeRandVille = ThreadLocalRandom.current().nextInt(2, 10 + 1);
+		int y = 0;
+		while (y < sizeRandVille)
+		{
+			int nbRand = ThreadLocalRandom.current().nextInt(1, 100 + 1);
+			if (schemaVille.contains(nbRand))
+				nbRand = ThreadLocalRandom.current().nextInt(1, 100 + 1);	
+			else
+			{
+				schemaVilleRand.add(nbRand);
+				y++;
+			}
+		}
+		System.out.println("Taille de schema aléatoire => " + sizeRandVille);
+		String displschema = "Schema aléatoire : ";
+		for (Integer i : schemaVilleRand)
+		{
+			displschema += i + "->" + " ";
+		}
+		displschema += schemaVilleRand.get(0);
+		System.out.println(displschema);
+		TSPAlgo algo2 = new TSPAlgo(schemaVilleRand);
+		algo2.tspAlgorithm(Data.getInstance().getCostMap());
+
+		HeuristiqueAlgo algoH = new HeuristiqueAlgo(20);
+		int result = algoH.tspHeurisAlgorithm(Data.getInstance().getCostMap());
+		System.out.println("Done, result of Heuristic is  : " + result);		
+	}
+}
