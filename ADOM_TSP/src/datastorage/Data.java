@@ -12,7 +12,8 @@ public class Data {
 	private HashMap<Integer, List<Integer>> dataMap = new HashMap<Integer, List<Integer>>();
 
 	private HashMap<Integer, List<Integer>> costMap = new HashMap<Integer, List<Integer>>();
-
+	
+	private HashMap<Integer, List<Integer>> hillClimbingData = new HashMap<Integer, List<Integer>>();
 	
 	public HashMap<Integer, List<Integer>> getCostMap() {
 		return costMap;
@@ -91,5 +92,25 @@ public class Data {
 		}
 	}
 
+	public void showDataHill()
+	{
+		Iterator<?> it = this.hillClimbingData.entrySet().iterator();
+		for (Map.Entry<Integer, List<Integer>> entry : hillClimbingData.entrySet()) {
+			Integer keyTmp = entry.getKey();
+			List<Integer> value = entry.getValue();
+			System.out.println(keyTmp + " = " + value);
+			//it.remove(); // avoids a ConcurrentModificationException
+		}
+	}
+	
+	public HashMap<Integer, List<Integer>> getHillClimbingData() {
+		return hillClimbingData;
+	}
+
+	public void setHillClimbingData(HashMap<Integer, List<Integer>> hillClimbingData) {
+		this.hillClimbingData = hillClimbingData;
+	}
+
+	
 
 }

@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import datastorage.Data;
+
 public class TSPAlgo {
 
 	List<Integer> scheme = new ArrayList<Integer>();
@@ -31,6 +33,7 @@ public class TSPAlgo {
 				//	System.out.println(key + " " + value);
 				if (actualCity == key)
 				{
+					Data.getInstance().getHillClimbingData().put(key, value);
 					if (key == 0)
 						result += value.get(nextCity);
 					else
@@ -46,6 +49,7 @@ public class TSPAlgo {
 			List<Integer> value = entry.getValue();
 			if (actualCity == key)
 			{
+				Data.getInstance().getHillClimbingData().put(key, value);
 				if (key == 0)
 					result += value.get(nextCity);
 				else
@@ -54,5 +58,29 @@ public class TSPAlgo {
 		}
 		System.out.println("Result of TSP Algo is " + result);
 		return result;
+	}
+	
+	public void supressUselessMatrice()
+	{
+		HashMap<Integer, List<Integer>> datas = Data.getInstance().getHillClimbingData();
+		HashMap<Integer, List<Integer>> datastmp = new HashMap();
+		List<Integer> tmp = new  ArrayList();
+		boolean checkzero = false;
+		
+		for (Map.Entry<Integer, List<Integer>> entry : datas.entrySet()) {
+			Integer keyTmp = entry.getKey();
+			List<Integer> value = entry.getValue();
+			tmp = new ArrayList();
+			for (Integer i : value)
+			{
+				if (i == 0)
+					checkzero = true;
+				if (checkzero)
+					tmp.add(i);
+			}
+			datastmp.put(keyTmp, tmp);
+			checkzero = false;
+		}
+		Data.getInstance().setHillClimbingData(datastmp);
 	}
 }

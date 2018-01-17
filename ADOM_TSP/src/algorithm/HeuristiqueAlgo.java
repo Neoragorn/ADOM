@@ -96,15 +96,9 @@ public class HeuristiqueAlgo {
 				List<Integer> cities = entry.getValue();
 				dist = cities.get(firstVille - 1);
 				//System.out.println("Shortest distance is between city N°" + ville + " and city N°" + firstVille + " which is " + dist);
-
 				result += dist;
 			}
 		}
-		/*for (Map.Entry<Integer, Boolean> entry : listCityVisited.entrySet()) {
-			boolean checking = entry.getValue();
-			Integer key = entry.getKey();
-			System.out.println("Final checking => city " + key + " boolean : " + checking);
-		}*/
 		return result;
 	}
 }
