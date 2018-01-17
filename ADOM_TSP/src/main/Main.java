@@ -28,9 +28,9 @@ public class Main {
 		schemaVille.add(4);
 		schemaVille.add(3);
 		schemaVille.add(8);
-		/*schemaVille.add(10);
+		schemaVille.add(10);
 		schemaVille.add(12);
-*/
+
 		TSPAlgo algo = new TSPAlgo(schemaVille);
 		algo.tspAlgorithm(Data.getInstance().getCostMap());
 		//algo.supressUselessMatrice();
@@ -38,7 +38,7 @@ public class Main {
 		
 		HillClimbing hill = new HillClimbing(schemaVille, Data.getInstance().getHillClimbingData());
 		hill.swap();
-//		hill.algoRound();
+		hill.twoOpt();
 		/*List<Integer> schemaVilleRand = new ArrayList<Integer>();
 		int sizeRandVille = ThreadLocalRandom.current().nextInt(2, 10 + 1);
 		int y = 0;
